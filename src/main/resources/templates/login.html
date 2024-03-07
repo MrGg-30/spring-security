@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Login Page</title>
+</head>
+
+<body>
+
+<div>
+    <div th:if="${param.failure != null}" class="alert alert-danger">
+        <div th:if="${accountLocked == true}">
+            <span th:text="'User is locked'"></span>
+        </div>
+        <div th:unless="${accountLocked == true}">
+            <span th:text="'Username or password is incorrect'"></span>
+        </div>
+    </div>
+
+    <form name="f" th:action="@{/login}" method="post">
+            <fieldset>
+                <legend>Please login</legend>
+                <div th:if="${param.error}" class="alert alert-error">
+                    Invalid username and password
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    you have been loged out
+                </div>
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username"/>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password"/>
+                <div class = "form-actions">
+                    <button type = "submit" class = "btn">Log in</button>
+                </div>
+            </fieldset>
+        </form>
+</div>
+</body>
+</html>

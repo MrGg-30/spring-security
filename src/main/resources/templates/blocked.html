@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.ad.org">
+<head>
+    <title>Blocked Users</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+<h1>Blocked Users</h1>
+
+<div th:if="${not #lists.isEmpty(blockedUsers)}">
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Blocked Time</th>
+            <th>Blocked Until</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="entry : ${blockedUsers}">
+            <td th:text="${entry.key}">Username</td>
+            <td th:text="${#temporals.format(entry.value.blockedTime, 'yyyy-MM-dd HH:mm:ss')}">Blocked Time</td>
+            <td th:text="${#temporals.format(entry.value.blockedUntil, 'yyyy-MM-dd HH:mm:ss')}">Blocked Until</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:if="${#lists.isEmpty(blockedUsers)}">
+    <p>No users are currently blocked.</p>
+</div>
+</body>
+</html>
